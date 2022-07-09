@@ -146,10 +146,11 @@ namespace ProxiBusNicWeb
 
 
         [WebMethod]
-        public string CrearUsuario(string Email, string Pass)
+        public ResultadoSW CrearUsuario(string Email, string Pass)
         {
+            ResultadoSW resultadoSW= new ResultadoSW();
             ApplicationDbContext context = new ApplicationDbContext();
-            string resultado = "";
+            //string resultado = "";
         
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var validarUsuario = UserManager.Users.Where(u => u.Email.Equals(Email)).FirstOrDefault();
@@ -174,18 +175,22 @@ namespace ProxiBusNicWeb
 
                      UserManager.AddToRole(user.Id, "UsuarioAnonimo");
 
-                    resultado = "Se ha creado el usuario satisfactoriamente";
+                    resultadoSW.mensaje = "Se ha creado el usuario satisfactoriamente";
+                    resultadoSW.respuesta = true;
                 }
                 else{
-                    resultado = "No se ha podido crear el usuario";
+                    resultadoSW.mensaje = "No se ha podido crear el usuario";
+                  
+                    resultadoSW.respuesta = false;
                 }
 
             }
             else
             {
-                resultado = "El correo ya existe";
+                resultadoSW.mensaje = "El correo ingresado ya existe";
+                resultadoSW.respuesta = false;
             }
-             return resultado;
+             return resultadoSW;
          
         }
 
@@ -207,7 +212,11 @@ namespace ProxiBusNicWeb
             else
                 return false;
         }
-
+        public class ResultadoSW
+        {
+            public string mensaje;
+            public bool respuesta;
+        }
         public class BusParadaWS
         {
             public int Id { get; set; }
