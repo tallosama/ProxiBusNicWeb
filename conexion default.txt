@@ -1,0 +1,4 @@
+  <connectionStrings>
+    <add name="DefaultConnection" connectionString="Data Source=DESKTOP-OO8OSN9;initial catalog=ProxiBusNicBD;integrated security=True;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+    <add name="ProxiBusNicEntityContainer" connectionString="metadata=res://*/Models.ProxiBusNicEntity.csdl|res://*/Models.ProxiBusNicEntity.ssdl|res://*/Models.ProxiBusNicEntity.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DESKTOP-OO8OSN9;initial catalog=ProxiBusNicBD;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>

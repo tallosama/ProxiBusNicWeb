@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProxiBusNicWeb.Models.Parada>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoParada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Latitud)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaModificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioModificacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Descripcion)
+    </td>
+    <td>
+        @if (item.Alias != null)
+        {
+            @Html.DisplayFor(modelItem => item.Alias)
+        }
+        @if (item.Alias == null)
+        {
+            @Html.Label( "N/A")
+        }
+    </td>
+    <td>
+        @if (item.FotoParada != null)
+        {
+            <img id="original" src="data:Img/png;base64,@Convert.ToBase64String(item.FotoParada)" width="80" height="80">
+        }
+
+        @if (item.FotoParada == null)
+        {
+            <img id="original" src="~/Img/Parada.png" width="80" height="80">
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Estado)
+    </td>
+    <td>
+        @if (item.Longitud != null)
+        {
+            @Html.DisplayFor(modelItem => item.Longitud)
+        }
+        @if (item.Longitud == null)
+        {
+            @Html.Label( "N/A")
+        }
+
+    </td>
+    <td>
+        @if (item.Latitud == null)
+        {
+
+            @Html.Label("N/A")
+        }
+        @if (item.Latitud != null)
+        {
+
+            @Html.DisplayFor(modelItem => item.Latitud)
+        }
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaCreacion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaModificacion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UsuarioModificacion)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+}
+
+</table>

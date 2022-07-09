@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProxiBusNicEntity.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ProxiBusNicEntityStoreContainer">
+    <EntitySet Name="Paradas" EntityType="ProxiBusNicEntity.Store.Paradas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sugerencias" EntityType="ProxiBusNicEntity.Store.Sugerencias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusParadas" EntityType="ProxiBusNicEntity.Store.BusParadas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Buses" EntityType="ProxiBusNicEntity.Store.Buses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ParadaSugerencia" Association="ProxiBusNicEntity.Store.ParadaSugerencia">
+      <End Role="Parada" EntitySet="Paradas" />
+      <End Role="Sugerencia" EntitySet="Sugerencias" />
+    </AssociationSet>
+    <AssociationSet Name="ParadaBusParada" Association="ProxiBusNicEntity.Store.ParadaBusParada">
+      <End Role="Parada" EntitySet="Paradas" />
+      <End Role="BusParada" EntitySet="BusParadas" />
+    </AssociationSet>
+    <AssociationSet Name="BusBusParada" Association="ProxiBusNicEntity.Store.BusBusParada">
+      <End Role="Bus" EntitySet="Buses" />
+      <End Role="BusParada" EntitySet="BusParadas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Paradas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Alias" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="FotoParada" Type="varbinary(max)" Nullable="true" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="Longitud" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Latitud" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioModificacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Sugerencias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionSugerencia" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="ParadaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BusParadas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParadaId" Type="int" Nullable="false" />
+    <Property Name="BusId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Buses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroRuta" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Estado" Type="bit" Nullable="false" />
+    <Property Name="FotoBus" Type="varbinary(max)" Nullable="true" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioModificacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <Association Name="ParadaSugerencia">
+    <End Role="Parada" Type="ProxiBusNicEntity.Store.Paradas" Multiplicity="1" />
+    <End Role="Sugerencia" Type="ProxiBusNicEntity.Store.Sugerencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parada">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sugerencia">
+        <PropertyRef Name="ParadaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParadaBusParada">
+    <End Role="Parada" Type="ProxiBusNicEntity.Store.Paradas" Multiplicity="1" />
+    <End Role="BusParada" Type="ProxiBusNicEntity.Store.BusParadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parada">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusParada">
+        <PropertyRef Name="ParadaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusBusParada">
+    <End Role="Bus" Type="ProxiBusNicEntity.Store.Buses" Multiplicity="1" />
+    <End Role="BusParada" Type="ProxiBusNicEntity.Store.BusParadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusParada">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProxiBusNicEntity" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ProxiBusNicEntityContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Paradas" EntityType="ProxiBusNicEntity.Parada" />
+          <EntitySet Name="Sugerencias" EntityType="ProxiBusNicEntity.Sugerencia" />
+          <EntitySet Name="BusParadas" EntityType="ProxiBusNicEntity.BusParada" />
+          <EntitySet Name="Buses" EntityType="ProxiBusNicEntity.Bus" />
+          <AssociationSet Name="ParadaSugerencia" Association="ProxiBusNicEntity.ParadaSugerencia">
+            <End EntitySet="Paradas" Role="Parada" />
+            <End EntitySet="Sugerencias" Role="Sugerencia" />
+          </AssociationSet>
+          <AssociationSet Name="ParadaBusParada" Association="ProxiBusNicEntity.ParadaBusParada">
+            <End EntitySet="Paradas" Role="Parada" />
+            <End EntitySet="BusParadas" Role="BusParada" />
+          </AssociationSet>
+          <AssociationSet Name="BusBusParada" Association="ProxiBusNicEntity.BusBusParada">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="BusParada" EntitySet="BusParadas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Parada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="Alias" Type="String" MaxLength="100" Nullable="true" />
+          <Property Name="FotoParada" Type="Binary" Nullable="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Longitud" Type="String" Nullable="true" />
+          <Property Name="Latitud" Type="String" Nullable="true" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="String" Nullable="false" MaxLength="100" />
+          <NavigationProperty Name="Sugerencias" Relationship="ProxiBusNicEntity.ParadaSugerencia" FromRole="Parada" ToRole="Sugerencia" />
+          <NavigationProperty Name="BusParadas" Relationship="ProxiBusNicEntity.ParadaBusParada" FromRole="Parada" ToRole="BusParada" />
+        </EntityType>
+        <EntityType Name="Sugerencia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionSugerencia" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Parada" Relationship="ProxiBusNicEntity.ParadaSugerencia" FromRole="Sugerencia" ToRole="Parada" />
+          <Property Name="ParadaId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusParada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Parada" Relationship="ProxiBusNicEntity.ParadaBusParada" FromRole="BusParada" ToRole="Parada" />
+          <Property Name="ParadaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bus" Relationship="ProxiBusNicEntity.BusBusParada" FromRole="BusParada" ToRole="Bus" />
+          <Property Name="BusId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroRuta" Type="String" Nullable="false" MaxLength="10" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="FotoBus" Type="Binary" Nullable="true" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="String" Nullable="false" MaxLength="100" />
+          <NavigationProperty Name="BusParadas" Relationship="ProxiBusNicEntity.BusBusParada" FromRole="Bus" ToRole="BusParada" />
+        </EntityType>
+        <Association Name="ParadaSugerencia">
+          <End Type="ProxiBusNicEntity.Parada" Multiplicity="1" Role="Parada" />
+          <End Type="ProxiBusNicEntity.Sugerencia" Multiplicity="*" Role="Sugerencia" />
+          <ReferentialConstraint>
+            <Principal Role="Parada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sugerencia">
+              <PropertyRef Name="ParadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ParadaBusParada">
+          <End Type="ProxiBusNicEntity.Parada" Multiplicity="1" Role="Parada" />
+          <End Type="ProxiBusNicEntity.BusParada" Multiplicity="*" Role="BusParada" />
+          <ReferentialConstraint>
+            <Principal Role="Parada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusParada">
+              <PropertyRef Name="ParadaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BusBusParada">
+          <End Type="ProxiBusNicEntity.Bus" Role="Bus" Multiplicity="1" />
+          <End Type="ProxiBusNicEntity.BusParada" Role="BusParada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusParada">
+              <PropertyRef Name="BusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProxiBusNicEntityStoreContainer" CdmEntityContainer="ProxiBusNicEntityContainer">
+    <EntitySetMapping Name="Paradas">
+      <EntityTypeMapping TypeName="IsTypeOf(ProxiBusNicEntity.Parada)">
+        <MappingFragment StoreEntitySet="Paradas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Alias" ColumnName="Alias" />
+          <ScalarProperty Name="FotoParada" ColumnName="FotoParada" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+          <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sugerencias">
+      <EntityTypeMapping TypeName="IsTypeOf(ProxiBusNicEntity.Sugerencia)">
+        <MappingFragment StoreEntitySet="Sugerencias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DescripcionSugerencia" ColumnName="DescripcionSugerencia" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="ParadaId" ColumnName="ParadaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusParadas">
+      <EntityTypeMapping TypeName="IsTypeOf(ProxiBusNicEntity.BusParada)">
+        <MappingFragment StoreEntitySet="BusParadas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ParadaId" ColumnName="ParadaId" />
+          <ScalarProperty Name="BusId" ColumnName="BusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buses">
+      <EntityTypeMapping TypeName="IsTypeOf(ProxiBusNicEntity.Bus)">
+        <MappingFragment StoreEntitySet="Buses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroRuta" ColumnName="NumeroRuta" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FotoBus" ColumnName="FotoBus" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
