@@ -1,33 +1,53 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+    
     if (User.IsInRole("Administrador"))
     {
-        <ul class="nav navbar-nav">
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+             aria-labelledby="userDropdown">
+
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item" href="@Url.Action("Index", new { controller = "Manage"})">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Perfil
+            </a>
+     
+            <div class="dropdown-divider"></div>
+
+            <a class="dropdown-item" href="@Url.Action("Index", "Home")" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Cerrar sesión
+            </a>
+
+        </div>
+
+        @*<ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
+                <li>@Html.ActionLink("Sugerencias", "Index", "Sugerencias")</li>
+                <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
+                <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
+            </ul>*@
+    }
+    @*if (User.IsInRole("Intrama"))
+        {
             <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
-            <li>@Html.ActionLink("Sugerencias", "Index", "Sugerencias")</li>
             <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
             <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
-        </ul>
-    }
-    if (User.IsInRole("Intrama"))
-    {
-        <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
-        <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
-        <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
-    }
+        }*@
 
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
+    @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
-        </ul>
-    }
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+            </ul>
+        }*@
 }
 else
 {
