@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProxiBusNicWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,13 @@ namespace ProxiBusNicWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private ProxiBusNicEntityContainer db = new ProxiBusNicEntityContainer();
         public ActionResult Index()
         {
+            ViewBag.contarBus = db.Buses.Count();
+            ViewBag.contarParadas = db.Paradas.Count();
+            ViewBag.contarBusParadas = db.BusParadas.Count();
+            ViewBag.contarSugerencias = db.Sugerencias.Count();
             return View();
         }
 
