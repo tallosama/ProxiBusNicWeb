@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ProxiBusNicWeb.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ProxiBusNicEntityContainer db = new ProxiBusNicEntityContainer();

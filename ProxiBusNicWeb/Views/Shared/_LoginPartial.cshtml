@@ -9,7 +9,7 @@
 
             <div class="dropdown-divider"></div>
 
-            <a class="dropdown-item" href="@Url.Action("Index", new { controller = "Manage"})">
+            <a class="dropdown-item" href="@Url.Action("Index",  "Manage")">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Perfil
             </a>
@@ -51,7 +51,7 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    @*<ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    </ul>*@
 }

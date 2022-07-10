@@ -2172,6 +2172,7 @@
     <Content Include="Views\Sugerencias\Details.cshtml" />
     <Content Include="Views\Sugerencias\Edit.cshtml" />
     <Content Include="Views\Sugerencias\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuLateral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
