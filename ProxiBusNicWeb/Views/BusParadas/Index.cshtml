@@ -9,31 +9,47 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Parada.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bus.NumeroRuta)
-        </th>
-        <th></th>
-    </tr>
+<table id ="Tabla" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Parada.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bus.NumeroRuta)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+   
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Parada.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bus.NumeroRuta)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parada.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bus.NumeroRuta)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+ 
 
 </table>
+
+<script src="/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Content/vendor/datatables/dataTables.responsive.min.js"></script>
+<script src="~/Content/vendor/datatables/responsive.bootstrap4.min.js"></script>
+<script src="~/Content/vendor/datatables/DataTables.js"></script>
