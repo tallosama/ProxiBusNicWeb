@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    
-    if (User.IsInRole("Administrador"))
-    {
+
+    //if (User.IsInRole("Administrador"))
+    //{
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown">
 
@@ -29,7 +29,7 @@
                 <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
                 <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
             </ul>*@
-    }
+    //}
     @*if (User.IsInRole("Intrama"))
         {
             <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
@@ -49,9 +49,4 @@
             </ul>
         }*@
 }
-else
-{
-    @*<ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>*@
-}
+

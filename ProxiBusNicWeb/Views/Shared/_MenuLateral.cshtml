@@ -1,4 +1,6 @@
-﻿ <!-- Sidebar -->
+﻿@if (Request.IsAuthenticated)
+    {
+<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 
@@ -13,9 +15,8 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    @*@if (Request.IsAuthenticated)
-    {*@ 
-     <!-- Nav Item - Dashboard -->
+
+    <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="@Url.Action( "Index", "Home")">
             <i class="fa-solid fa-house"></i>
@@ -71,9 +72,10 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-    @*  }*@
-   
+
+
 
 
 </ul>
+ }
 <!-- End of Sidebar -->

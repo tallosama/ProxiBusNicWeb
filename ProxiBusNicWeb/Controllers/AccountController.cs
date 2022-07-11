@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,6 +10,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProxiBusNicWeb.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+
+
 
 namespace ProxiBusNicWeb.Controllers
 {
@@ -155,6 +159,13 @@ namespace ProxiBusNicWeb.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    ApplicationDbContext context = new ApplicationDbContext();
+                    var manejadorRol = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                    if (!manejadorRol.RoleExists("UsuarioAnonimo"))
+                    {
+                        manejadorRol.Create(new IdentityRole("UsuarioAnonimo"));
+                    }
+                    UserManager.AddToRole(user.Id, "UsuarioAnonimo");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
