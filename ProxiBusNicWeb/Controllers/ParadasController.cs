@@ -19,7 +19,17 @@ namespace ProxiBusNicWeb.Controllers
         // GET: Paradas
         public ActionResult Index()
         {
-            return View(db.Paradas.ToList());
+            List<Parada> paradas = null;
+            if (User.IsInRole("UsuarioAnonimo"))
+            {
+                paradas = db.Paradas.Where(p => p.Estado).ToList();
+
+            }
+            else
+            {
+                paradas = db.Paradas.ToList();
+            }
+            return View(paradas);
         }
 
         // GET: Paradas/Details/5

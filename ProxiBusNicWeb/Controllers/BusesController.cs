@@ -19,7 +19,16 @@ namespace ProxiBusNicWeb.Controllers
         // GET: Buses
         public ActionResult Index()
         {
-            return View(db.Buses.ToList());
+            List<Bus> bus = null;
+            if (User.IsInRole("UsuarioAnonimo"))
+            {
+                bus = db.Buses.Where(b=>b.Estado).ToList();
+            }
+            else
+            {
+                bus = db.Buses.ToList();
+            }
+            return View(bus);
         }
 
         // GET: Buses/Details/5

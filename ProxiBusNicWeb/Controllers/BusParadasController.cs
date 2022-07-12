@@ -18,7 +18,16 @@ namespace ProxiBusNicWeb.Controllers
         // GET: BusParadas
         public ActionResult Index()
         {
-            var busParadas = db.BusParadas.Include(b => b.Parada).Include(b => b.Bus);
+            IQueryable<BusParada> busParadas = null;
+            if (User.IsInRole("UsuarioAnonimo"))
+            {
+                 busParadas = db.BusParadas.Include(b => b.Parada).Include(b => b.Bus).Where(p => p.Parada.Estado && p.Bus.Estado);
+            }
+            else
+            {
+                busParadas = db.BusParadas.Include(b => b.Parada).Include(b => b.Bus);
+            }
+            
             return View(busParadas.ToList());
         }
 

@@ -7,50 +7,60 @@
 <h2>Paradas</h2>
 
 <p>
-    @Html.ActionLink("Crear", "Create")
+    @if (!User.IsInRole("UsuarioAnonimo"))
+    {
+        @Html.ActionLink("Crear", "Create")
+    }
 </p>
-<table class="table" id="Tabla">
-    <thead>
+<div class="table-responsive">
 
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alias)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FotoParada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitud)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitud)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCreacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaModificacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioModificacion)
-            </th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
+    <table class="table" id="Tabla">
+        <thead>
 
-    <tbody>
+            <tr>
+                <th>
+                    @Html.Label("Descripción")
+                </th>
+                <th>
+                    @Html.Label("Alias")
+                </th>
+                <th>
+                    @Html.Label("Foto de parada")
+                </th>
+                <th>
+                    @Html.Label("Estado")
+                </th>
+                <th>
+                    @Html.Label("Longitud")
+                </th>
+                <th>
+                    @Html.Label("Latitud")
+                </th>
+                <th>
+                    @Html.Label("Fecha de creacion")
+                </th>
+                @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <th>
+                        @Html.Label("Creado por")
+                    </th>
+                }
+                <th>
+                    @Html.Label("Fecha de modificación")
+                </th>
+                @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <th>
+                        @Html.Label("Modificado por")
+                    </th>
+                    <th>Acciones</th>}
+                </tr>
+        </thead>
 
-        @foreach (var item in Model)
-        {
+        <tbody>
+
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Descripcion)
@@ -106,28 +116,35 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaModificacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioModificacion)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Detallar", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
+                </td>    @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                    </td>}
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaModificacion)
+                    </td>
+                    @if (!User.IsInRole("UsuarioAnonimo"))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsuarioModificacion)
+                        </td>
+                        <td>
 
-</table>
-<script src="/Content/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="~/Content/vendor/datatables/dataTables.responsive.min.js"></script>
-<script src="~/Content/vendor/datatables/responsive.bootstrap4.min.js"></script>
-<script src="~/Content/vendor/datatables/DataTables.js"></script>
+
+                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <br>
+                            @Html.ActionLink("Detallar", "Details", new { id = item.Id }) <br>
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <script src="/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/vendor/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Content/vendor/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/vendor/datatables/DataTables.js"></script>

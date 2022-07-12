@@ -16,7 +16,14 @@ namespace ProxiBusNicWeb.Controllers
             ViewBag.contarBus = db.Buses.Count();
             ViewBag.contarParadas = db.Paradas.Count();
             ViewBag.contarBusParadas = db.BusParadas.Count();
-            ViewBag.contarSugerencias = db.Sugerencias.Count();
+            if (User.IsInRole("UsuarioAnonimo"))
+            {
+                ViewBag.contarSugerencias = db.Sugerencias.Where(s=>s.UsuarioCreacion.Equals(User.Identity.Name)).Count();
+            }
+            else
+            {
+                ViewBag.contarSugerencias = db.Sugerencias.Count();
+            }
             return View();
         }
 

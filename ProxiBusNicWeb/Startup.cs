@@ -45,8 +45,8 @@ namespace ProxiBusNicWeb
                     user.UserName = "intrama@gmail.com";
                     user.Email = "intrama@gmail.com";
                     string pass = "12345678";
-                    manejadorUsuario.Create(user, pass);
                     var t = manejadorUsuario.Create(user, pass);
+                     
                     if (t.Succeeded)
                         manejadorUsuario.AddToRole(user.Id, "Intrama");
 

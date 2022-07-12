@@ -7,48 +7,63 @@
 <h2>Sugerencias</h2>
 
 <p>
-    @Html.ActionLink("Crear", "Create")
+    @if (!User.IsInRole("Intrama"))
+    {@Html.ActionLink("Crear", "Create")}
 </p>
 <table class="table" id="Tabla">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DescripcionSugerencia)
+                @Html.Label("Descripción")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UsuarioCreacion)
+                @Html.Label("Creado por")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
+                @Html.Label("Fecha de Creación")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Parada.Descripcion)
+
+                @Html.Label("Parada")
             </th>
-            <th>Acciones</th>
+
+            @if (!User.IsInRole("Intrama"))
+            {
+                <th>
+                    Acciones
+                    </th >
+                }
+
         </tr>
     </thead>
 
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionSugerencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parada.Descripcion)
+            </td>
+            @if (!User.IsInRole("Intrama"))
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.DescripcionSugerencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Parada.Descripcion)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Detallar", "Details", new { id = item.Id }) |
+
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <br>
+                    @Html.ActionLink("Detallar", "Details", new { id = item.Id }) <br>
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+             
+
                 </td>
+            }
             </tr>
         }
 

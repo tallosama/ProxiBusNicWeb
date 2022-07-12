@@ -18,7 +18,17 @@ namespace ProxiBusNicWeb.Controllers
         // GET: Sugerencias
         public ActionResult Index()
         {
-            var sugerencias = db.Sugerencias.Include(s => s.Parada);
+            IQueryable<Sugerencia> sugerencias = null;
+            if (User.IsInRole("UsuarioAnonimo"))
+            {
+                sugerencias = db.Sugerencias.Include(s => s.Parada).Where(u => u.UsuarioCreacion.Equals(User.Identity.Name));
+                
+            }
+            else
+            {
+                sugerencias = db.Sugerencias.Include(s => s.Parada);
+            }
+            
             return View(sugerencias.ToList());
         }
 

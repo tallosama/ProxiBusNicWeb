@@ -1,9 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-
-    //if (User.IsInRole("Administrador"))
-    //{
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown">
 
@@ -22,20 +19,6 @@
             </a>
 
         </div>
-
-        @*<ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
-                <li>@Html.ActionLink("Sugerencias", "Index", "Sugerencias")</li>
-                <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
-                <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
-            </ul>*@
-    //}
-    @*if (User.IsInRole("Intrama"))
-        {
-            <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
-            <li>@Html.ActionLink("Paradas", "Index", "Paradas")</li>
-            <li>@Html.ActionLink("Buses paradas", "Index", "BusParadas")</li>
-        }*@
 
     @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
