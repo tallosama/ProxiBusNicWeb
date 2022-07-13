@@ -4,9 +4,11 @@ using Microsoft.AspNet.Identity.Owin;
 using ProxiBusNicWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Services;
 
 namespace ProxiBusNicWeb
@@ -24,21 +26,21 @@ namespace ProxiBusNicWeb
         ProxiBusNicEntityContainer db = new ProxiBusNicEntityContainer();
 
         [WebMethod]
-        public int AgregarParada(string descripcion, string alias, byte[] foto, bool estado, string usuario)
+        public int AgregarParada(ParadasWS paradasWS)
         {
             Parada parada = new Parada();
 
-            parada.Descripcion = descripcion;
-            parada.Alias = alias;
-            if (foto != null)
-                parada.FotoParada = foto;
-            parada.Estado = estado;
-
-            parada.FechaCreacion = DateTime.Now;
-            parada.UsuarioCreacion = usuario;
-
-            parada.FechaModificacion = DateTime.Now;
-            parada.UsuarioModificacion = usuario;
+        parada.Descripcion = paradasWS.Descripcion;
+            parada.Alias =paradasWS.Alias;
+            if (paradasWS.FotoParada != null)
+                parada.FotoParada = paradasWS.FotoParada;
+            parada.Estado = paradasWS.Estado;
+            parada.Latitud=paradasWS.Latitud;
+            parada.Longitud=paradasWS.Longitud;
+            parada.FechaCreacion = paradasWS.FechaCreacion;
+            parada.UsuarioCreacion = paradasWS.UsuarioCreacion;
+            parada.FechaModificacion = paradasWS.FechaModificacion;
+            parada.UsuarioModificacion = paradasWS.UsuarioModificacion;
 
             db.Paradas.Add(parada);
             db.SaveChanges();
@@ -47,28 +49,163 @@ namespace ProxiBusNicWeb
         }
 
         [WebMethod]
-        public int BuscarParada(string descripcion, string alias, byte[] foto, bool estado, string usuario)
+        public List<ParadasWS> ListarParada()
         {
-            Parada parada = new Parada();
 
-            parada.Descripcion = descripcion;
-            parada.Alias = alias;
-            if (foto != null)
-                parada.FotoParada = foto;
-            parada.Estado = estado;
 
-            parada.FechaCreacion = DateTime.Now;
-            parada.UsuarioCreacion = usuario;
+            return db.Paradas.Select(p => new ParadasWS()
+            {
 
-            parada.FechaModificacion = DateTime.Now;
-            parada.UsuarioModificacion = usuario;
+                Id = p.Id,
+                Descripcion = p.Descripcion,
+                Alias = p.Alias,
+                FotoParada = p.FotoParada,
+                Estado = p.Estado,
+                Longitud = p.Longitud,
+                Latitud = p.Latitud,
+                FechaCreacion = p.FechaCreacion,
+                UsuarioCreacion = p.UsuarioCreacion,
+                FechaModificacion = p.FechaModificacion,
+                UsuarioModificacion = p.UsuarioModificacion
 
-            db.Paradas.Add(parada);
-            db.SaveChanges();
-            return parada.Id;
+            }).ToList();
 
         }
 
+        [WebMethod]
+        public List<ParadasWS> ListarParadaActivas()
+        {
+
+
+            return db.Paradas.Where(p=>p.Estado).Select(p => new ParadasWS()
+            {
+
+                Id = p.Id,
+                Descripcion = p.Descripcion,
+                Alias = p.Alias,
+                FotoParada = p.FotoParada,
+                Estado = p.Estado,
+                Longitud = p.Longitud,
+                Latitud = p.Latitud,
+                FechaCreacion = p.FechaCreacion,
+                UsuarioCreacion = p.UsuarioCreacion,
+                FechaModificacion = p.FechaModificacion,
+                UsuarioModificacion = p.UsuarioModificacion
+
+            }).ToList();
+
+        }
+
+        [WebMethod]
+        public List<BusWS> ListarBus()
+        {
+
+
+            return db.Buses.Select(b => new BusWS()
+            {
+
+                Id = b.Id,
+                NumeroRuta = b.NumeroRuta,
+                Estado = b.Estado,
+                FotoBus = b.FotoBus,
+
+                FechaCreacion = b.FechaCreacion,
+                UsuarioCreacion = b.UsuarioCreacion,
+                FechaModificacion = b.FechaModificacion,
+                UsuarioModificacion = b.UsuarioModificacion
+
+            }).ToList();
+
+        }
+        [WebMethod]
+        public List<BusWS> ListarBusActivos()
+        {
+
+
+            return db.Buses.Where(b=>b.Estado).Select(b => new BusWS()
+            {
+
+                Id = b.Id,
+                NumeroRuta = b.NumeroRuta,
+                Estado = b.Estado,
+                FotoBus = b.FotoBus,
+
+                FechaCreacion = b.FechaCreacion,
+                UsuarioCreacion = b.UsuarioCreacion,
+                FechaModificacion = b.FechaModificacion,
+                UsuarioModificacion = b.UsuarioModificacion
+
+            }).ToList();
+
+        }
+
+        [WebMethod]
+        public List<BusParadaWS> ListarBusParada()
+        {
+
+
+            return db.BusParadas.Select(b => new BusParadaWS()
+            {
+                Id = b.Id,
+                ParadaId = b.ParadaId,
+                BusId = b.BusId
+            }).ToList();
+
+        }
+      
+        [WebMethod]
+        public int EditarBusParadas(BusParadaWS busParadaWs)
+        {
+
+
+            BusParada busParada = new BusParada();
+            busParada.BusId = busParadaWs.BusId;
+            busParada.Id = busParadaWs.Id;
+            busParada.ParadaId = busParadaWs.ParadaId;
+
+            db.Entry(busParada).State = EntityState.Modified;
+
+            return db.SaveChanges();
+
+        }
+        [WebMethod]
+        public int EditarBus(BusWS busWs)
+        {
+
+
+            Bus bus = new Bus();
+            bus.NumeroRuta = busWs.NumeroRuta;
+            bus.Estado = busWs.Estado;
+            bus.FotoBus = busWs.FotoBus;
+            bus.FechaModificacion = busWs.FechaModificacion;
+            bus.UsuarioModificacion = busWs.UsuarioModificacion;
+             
+            db.Entry(bus).State = EntityState.Modified;
+
+            return db.SaveChanges();
+
+        }
+        [WebMethod]
+        public int EditarParadas(ParadasWS ParadasWs)
+        {
+             
+            Parada parada = new Parada();
+            parada.Id = ParadasWs.Id;
+            parada.Descripcion = ParadasWs.Descripcion;
+            parada.Alias = ParadasWs.Alias;
+            parada.FotoParada = ParadasWs.FotoParada;
+            parada.Estado = ParadasWs.Estado;
+            parada.Latitud = ParadasWs.Latitud;
+            parada.Longitud= ParadasWs.Longitud;
+            parada.UsuarioModificacion = ParadasWs.UsuarioModificacion;
+            parada.FechaModificacion = ParadasWs.FechaModificacion;
+             
+
+        db.Entry(parada).State = EntityState.Modified;
+
+            return db.SaveChanges();
+
+        }
 
         [WebMethod]
         public int AgregarSugerencia(string descripcion, string usuario, int idParada)

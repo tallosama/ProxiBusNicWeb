@@ -28,7 +28,11 @@ namespace ProxiBusNicWeb.Controllers
             {
                 sugerencias = db.Sugerencias.Include(s => s.Parada);
             }
-            
+            var l=sugerencias.OrderBy(x => x.ParadaId).ToList();
+            foreach (var i in l)
+            {
+                Console.WriteLine(i.);
+            }
             return View(sugerencias.ToList());
         }
 

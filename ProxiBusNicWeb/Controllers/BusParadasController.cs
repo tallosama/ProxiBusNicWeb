@@ -28,6 +28,7 @@ namespace ProxiBusNicWeb.Controllers
                 busParadas = db.BusParadas.Include(b => b.Parada).Include(b => b.Bus);
             }
             
+            
             return View(busParadas.ToList());
         }
 
