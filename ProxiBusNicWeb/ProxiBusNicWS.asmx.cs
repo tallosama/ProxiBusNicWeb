@@ -208,30 +208,27 @@ namespace ProxiBusNicWeb
         }
 
         [WebMethod]
-        public int AgregarSugerencia(string descripcion, string usuario, int idParada)
+        public int AgregarSugerencia(SugerenciaWS sugerenciaWS)
         {
             Sugerencia sugerencia = new Sugerencia();
 
-            sugerencia.DescripcionSugerencia = descripcion;
-            sugerencia.ParadaId = idParada;
-
-
+            sugerencia.DescripcionSugerencia = sugerenciaWS.DescripcionSugerencia;
+            sugerencia.ParadaId = sugerenciaWS.ParadaId;
             sugerencia.FechaCreacion = DateTime.Now;
-            sugerencia.UsuarioCreacion = usuario;
-
-
+            sugerencia.UsuarioCreacion = sugerenciaWS.UsuarioCreacion;
+        
             db.Sugerencias.Add(sugerencia);
             db.SaveChanges();
             return sugerencia.Id;
 
         }
         [WebMethod]
-        public bool AgregarBusParadas(int idBus, int idParada)
+        public bool AgregarBusParadas(BusParadaWS busParadaWS)
         {
             BusParada busParada = new BusParada();
 
-            busParada.BusId = idBus;
-            busParada.ParadaId = idParada;
+            busParada.BusId = busParadaWS.BusId;
+            busParada.ParadaId = busParadaWS.BusId;
 
             db.BusParadas.Add(busParada);
             if (db.SaveChanges() > 0)
@@ -243,19 +240,23 @@ namespace ProxiBusNicWeb
                 return false;
         }
         [WebMethod]
-        public int AgregarBus(string numRuta, bool estado, string usuario)
+        public int AgregarBus(BusWS busWS)
         {
             Bus bus = new Bus();
-            bus.NumeroRuta = numRuta;
-            bus.Estado = estado;
-
+            bus.NumeroRuta = busWS.NumeroRuta;
+            bus.Estado = busWS.Estado;
+            if (busWS.FotoBus != null)
+            {
+                bus.FotoBus = busWS.FotoBus;
+            }
             bus.FechaCreacion = DateTime.Now;
-            bus.UsuarioCreacion = usuario;
+            bus.UsuarioCreacion = busWS.UsuarioCreacion;
 
             bus.FechaModificacion = DateTime.Now;
-            bus.UsuarioModificacion = usuario;
+            bus.UsuarioModificacion = busWS.UsuarioModificacion;
 
-            db.Buses.Add(bus);
+
+        db.Buses.Add(bus);
             db.SaveChanges();
             return bus.Id;
 
