@@ -1912,6 +1912,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\OriginalLogo.png" />
     <Content Include="Img\paradaConBus.png" />
     <Content Include="Img\Ruta.png" />
     <Content Include="Img\Parada.png" />

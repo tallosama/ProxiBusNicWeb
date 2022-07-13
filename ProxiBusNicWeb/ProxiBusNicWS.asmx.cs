@@ -152,7 +152,22 @@ namespace ProxiBusNicWeb
             }).ToList();
 
         }
-      
+        [WebMethod]
+        public List<UsuariosWS> ListarUsuarios()
+        {
+
+            ApplicationDbContext context = new ApplicationDbContext();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            return userManager.Users.ToList().Select(b => new UsuariosWS()
+            {
+                Id = b.Id,
+                Correo = b.Email,
+                Clave = b.PasswordHash
+            }).ToList();
+
+        }
+
         [WebMethod]
         public int EditarBusParadas(BusParadaWS busParadaWs)
         {
@@ -223,7 +238,7 @@ namespace ProxiBusNicWeb
 
         }
         [WebMethod]
-        public bool AgregarBusParadas(BusParadaWS busParadaWS)
+        public int AgregarBusParadas(BusParadaWS busParadaWS)
         {
             BusParada busParada = new BusParada();
 
@@ -231,13 +246,11 @@ namespace ProxiBusNicWeb
             busParada.ParadaId = busParadaWS.BusId;
 
             db.BusParadas.Add(busParada);
-            if (db.SaveChanges() > 0)
-            {
+            db.SaveChanges();
+            
 
-                return true;
-            }
-            else
-                return false;
+                return busParada.Id;
+            
         }
         [WebMethod]
         public int AgregarBus(BusWS busWS)
@@ -286,10 +299,10 @@ namespace ProxiBusNicWeb
         [WebMethod]
         public ResultadoSW CrearUsuario(string Email, string Pass)
         {
-            ResultadoSW resultadoSW= new ResultadoSW();
+            ResultadoSW resultadoSW = new ResultadoSW();
             ApplicationDbContext context = new ApplicationDbContext();
             //string resultado = "";
-        
+
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var validarUsuario = UserManager.Users.Where(u => u.Email.Equals(Email)).FirstOrDefault();
 
@@ -311,14 +324,15 @@ namespace ProxiBusNicWeb
                         manejadorRol.Create(new IdentityRole("UsuarioAnonimo"));
                     }
 
-                     UserManager.AddToRole(user.Id, "UsuarioAnonimo");
+                    UserManager.AddToRole(user.Id, "UsuarioAnonimo");
 
                     resultadoSW.mensaje = "Se ha creado el usuario satisfactoriamente";
                     resultadoSW.respuesta = true;
                 }
-                else{
-                    resultadoSW.mensaje = "No se ha podido crear el usuario";
-                  
+                else
+                {
+                    resultadoSW.mensaje = "No se ha podido crear el usuario, rectifique los campos";
+
                     resultadoSW.respuesta = false;
                 }
 
@@ -328,8 +342,73 @@ namespace ProxiBusNicWeb
                 resultadoSW.mensaje = "El correo ingresado ya existe";
                 resultadoSW.respuesta = false;
             }
-             return resultadoSW;
-         
+            return resultadoSW;
+
+        }
+        [WebMethod]
+        public ResultadoSW CrearUsuarioRol(string Email, string Pass, string rol)
+        {
+            ResultadoSW resultadoSW = new ResultadoSW();
+            ApplicationDbContext context = new ApplicationDbContext();
+            //string resultado = "";
+
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var validarUsuario = UserManager.Users.Where(u => u.Email.Equals(Email)).FirstOrDefault();
+
+            if (validarUsuario == null)
+            {
+
+                var user = new ApplicationUser();
+                user.UserName = Email;
+                user.Email = Email;
+                string userPWD = Pass;
+
+                var chkUser = UserManager.Create(user, userPWD);
+
+                if (chkUser.Succeeded)
+                {
+                    var manejadorRol = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                    if (rol.Equals("Administrador"))
+                    {
+                        if (!manejadorRol.RoleExists("Administrador"))
+                        {
+                            manejadorRol.Create(new IdentityRole("Administrador"));
+                        }
+
+                        UserManager.AddToRole(user.Id, "Administrador");
+
+                        resultadoSW.mensaje = "Se ha creado el usuario satisfactoriamente";
+                        resultadoSW.respuesta = true;
+                    }
+                    else if (rol.Equals("Intrama"))
+                    {
+                        if (!manejadorRol.RoleExists("Intrama"))
+                        {
+                            manejadorRol.Create(new IdentityRole("Intrama"));
+                        }
+
+                        UserManager.AddToRole(user.Id, "Intrama");
+
+                        resultadoSW.mensaje = "Se ha creado el usuario satisfactoriamente";
+                        resultadoSW.respuesta = true;
+                    }
+                   
+                }
+                else
+                {
+                    resultadoSW.mensaje = "No se ha podido crear el usuario, rectifique los campos";
+
+                    resultadoSW.respuesta = false;
+                }
+
+            }
+            else
+            {
+                resultadoSW.mensaje = "El correo ingresado ya existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
         }
 
         [WebMethod]
@@ -368,7 +447,13 @@ namespace ProxiBusNicWeb
             public System.DateTime FechaCreacion { get; set; }
             public int ParadaId { get; set; }
         }
+        public class UsuariosWS
+        {
+            public string Id { get; set; }
+            public string Correo { get; set; }
+            public string Clave { get; set; }
 
+        }
         public class BusWS{
             public int Id { get; set; }
             public string NumeroRuta { get; set; }
