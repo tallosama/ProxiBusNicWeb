@@ -34,9 +34,9 @@
     <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="Longitud" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Latitud" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaCreacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaModificacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UsuarioModificacion" Type="nvarchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Sugerencias">
@@ -46,7 +46,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DescripcionSugerencia" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaCreacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ParadaId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="BusParadas">
@@ -65,9 +65,9 @@
     <Property Name="NumeroRuta" Type="nvarchar" Nullable="false" MaxLength="10" />
     <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="FotoBus" Type="varbinary(max)" Nullable="true" />
-    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaCreacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UsuarioCreacion" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="FechaModificacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaModificacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UsuarioModificacion" Type="nvarchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <Association Name="ParadaSugerencia">
@@ -139,9 +139,9 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="Longitud" Type="String" Nullable="true" />
           <Property Name="Latitud" Type="String" Nullable="true" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="FechaCreacion" Type="String" Nullable="false" />
           <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
-          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" />
+          <Property Name="FechaModificacion" Type="String" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="String" Nullable="false" MaxLength="100" />
           <NavigationProperty Name="Sugerencias" Relationship="ProxiBusNicEntity.ParadaSugerencia" FromRole="Parada" ToRole="Sugerencia" />
           <NavigationProperty Name="BusParadas" Relationship="ProxiBusNicEntity.ParadaBusParada" FromRole="Parada" ToRole="BusParada" />
@@ -153,7 +153,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DescripcionSugerencia" Type="String" Nullable="false" MaxLength="100" />
           <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="FechaCreacion" Type="String" Nullable="false" />
           <NavigationProperty Name="Parada" Relationship="ProxiBusNicEntity.ParadaSugerencia" FromRole="Sugerencia" ToRole="Parada" />
           <Property Name="ParadaId" Type="Int32" Nullable="false" />
         </EntityType>
@@ -175,9 +175,9 @@
           <Property Name="NumeroRuta" Type="String" Nullable="false" MaxLength="10" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="FotoBus" Type="Binary" Nullable="true" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="FechaCreacion" Type="String" Nullable="false" />
           <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="100" />
-          <Property Name="FechaModificacion" Type="DateTime" Nullable="false" />
+          <Property Name="FechaModificacion" Type="String" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="String" Nullable="false" MaxLength="100" />
           <NavigationProperty Name="BusParadas" Relationship="ProxiBusNicEntity.BusBusParada" FromRole="Bus" ToRole="BusParada" />
         </EntityType>

@@ -37,9 +37,9 @@ namespace ProxiBusNicWeb
             parada.Estado = paradasWS.Estado;
             parada.Latitud=paradasWS.Latitud;
             parada.Longitud=paradasWS.Longitud;
-            parada.FechaCreacion = paradasWS.FechaCreacion;
+            parada.FechaCreacion = DateTime.Now.ToString();
             parada.UsuarioCreacion = paradasWS.UsuarioCreacion;
-            parada.FechaModificacion = paradasWS.FechaModificacion;
+            parada.FechaModificacion = DateTime.Now.ToString();
             parada.UsuarioModificacion = paradasWS.UsuarioModificacion;
 
             db.Paradas.Add(parada);
@@ -192,7 +192,7 @@ namespace ProxiBusNicWeb
             bus.NumeroRuta = busWs.NumeroRuta;
             bus.Estado = busWs.Estado;
             bus.FotoBus = busWs.FotoBus;
-            bus.FechaModificacion = busWs.FechaModificacion;
+            bus.FechaModificacion = DateTime.Now.ToString();
             bus.UsuarioModificacion = busWs.UsuarioModificacion;
              
             db.Entry(bus).State = EntityState.Modified;
@@ -213,7 +213,7 @@ namespace ProxiBusNicWeb
             parada.Latitud = ParadasWs.Latitud;
             parada.Longitud= ParadasWs.Longitud;
             parada.UsuarioModificacion = ParadasWs.UsuarioModificacion;
-            parada.FechaModificacion = ParadasWs.FechaModificacion;
+            parada.FechaModificacion = DateTime.Now.ToString();
              
 
         db.Entry(parada).State = EntityState.Modified;
@@ -229,7 +229,7 @@ namespace ProxiBusNicWeb
 
             sugerencia.DescripcionSugerencia = sugerenciaWS.DescripcionSugerencia;
             sugerencia.ParadaId = sugerenciaWS.ParadaId;
-            sugerencia.FechaCreacion = DateTime.Now;
+            sugerencia.FechaCreacion = DateTime.Now.ToString();
             sugerencia.UsuarioCreacion = sugerenciaWS.UsuarioCreacion;
         
             db.Sugerencias.Add(sugerencia);
@@ -262,10 +262,10 @@ namespace ProxiBusNicWeb
             {
                 bus.FotoBus = busWS.FotoBus;
             }
-            bus.FechaCreacion = DateTime.Now;
+            bus.FechaCreacion = DateTime.Now.ToString();
             bus.UsuarioCreacion = busWS.UsuarioCreacion;
 
-            bus.FechaModificacion = DateTime.Now;
+            bus.FechaModificacion = DateTime.Now.ToString();
             bus.UsuarioModificacion = busWS.UsuarioModificacion;
 
 
@@ -444,7 +444,7 @@ namespace ProxiBusNicWeb
             public int Id { get; set; }
             public string DescripcionSugerencia { get; set; }
             public string UsuarioCreacion { get; set; }
-            public System.DateTime FechaCreacion { get; set; }
+            public string FechaCreacion { get; set; }
             public int ParadaId { get; set; }
         }
         public class UsuariosWS
@@ -459,9 +459,9 @@ namespace ProxiBusNicWeb
             public string NumeroRuta { get; set; }
             public bool Estado { get; set; }
             public byte[] FotoBus { get; set; }
-            public System.DateTime FechaCreacion { get; set; }
+            public string FechaCreacion { get; set; }
             public string UsuarioCreacion { get; set; }
-            public System.DateTime FechaModificacion { get; set; }
+            public string FechaModificacion { get; set; }
             public string UsuarioModificacion { get; set; }
         }
 
@@ -474,9 +474,9 @@ namespace ProxiBusNicWeb
             public bool Estado { get; set; }
             public string Longitud { get; set; }
             public string Latitud { get; set; }
-            public System.DateTime FechaCreacion { get; set; }
+            public string FechaCreacion { get; set; }
             public string UsuarioCreacion { get; set; }
-            public System.DateTime FechaModificacion { get; set; }
+            public string FechaModificacion { get; set; }
             public string UsuarioModificacion { get; set; }
         }
     }

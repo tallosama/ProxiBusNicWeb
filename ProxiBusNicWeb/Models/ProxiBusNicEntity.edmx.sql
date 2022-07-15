@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/04/2022 17:52:44
--- Generated from EDMX file: C:\Users\Tyler Rodríguez\source\repos\ProxiBusNicWeb\ProxiBusNicWeb\Models\ProxiBusNicEntity.edmx
+-- Date Created: 07/15/2022 00:00:56
+-- Generated from EDMX file: C:\Users\Tyler Rodríguez\Documents\Visual Studio 2019\pbn\ProxiBusNicWeb\ProxiBusNicWeb\Models\ProxiBusNicEntity.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -57,9 +57,9 @@ CREATE TABLE [dbo].[Paradas] (
     [Estado] bit  NOT NULL,
     [Longitud] nvarchar(max)  NULL,
     [Latitud] nvarchar(max)  NULL,
-    [FechaCreacion] datetime  NOT NULL,
+    [FechaCreacion] nvarchar(max)  NOT NULL,
     [UsuarioCreacion] nvarchar(100)  NOT NULL,
-    [FechaModificacion] datetime  NOT NULL,
+    [FechaModificacion] nvarchar(max)  NOT NULL,
     [UsuarioModificacion] nvarchar(100)  NOT NULL
 );
 GO
@@ -69,7 +69,7 @@ CREATE TABLE [dbo].[Sugerencias] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DescripcionSugerencia] nvarchar(100)  NOT NULL,
     [UsuarioCreacion] nvarchar(100)  NOT NULL,
-    [FechaCreacion] datetime  NOT NULL,
+    [FechaCreacion] nvarchar(max)  NOT NULL,
     [ParadaId] int  NOT NULL
 );
 GO
@@ -88,9 +88,9 @@ CREATE TABLE [dbo].[Buses] (
     [NumeroRuta] nvarchar(10)  NOT NULL,
     [Estado] bit  NOT NULL,
     [FotoBus] varbinary(max)  NULL,
-    [FechaCreacion] datetime  NOT NULL,
+    [FechaCreacion] nvarchar(max)  NOT NULL,
     [UsuarioCreacion] nvarchar(100)  NOT NULL,
-    [FechaModificacion] datetime  NOT NULL,
+    [FechaModificacion] nvarchar(max)  NOT NULL,
     [UsuarioModificacion] nvarchar(100)  NOT NULL
 );
 GO

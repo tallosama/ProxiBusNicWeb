@@ -12,7 +12,7 @@
         @Html.ActionLink("Crear", "Create")
     }
 </p>
-<table id ="Tabla" class="table">
+<table id="Tabla" class="table">
     <thead>
         <tr>
             <th>
@@ -23,43 +23,45 @@
             </th>
             @if (!User.IsInRole("UsuarioAnonimo"))
             {
-                <th>Acciones</th>}
-            </tr>
+                <th>Acciones</th>
+            }
+        </tr>
     </thead>
-   
+
 
     <tbody>
         @foreach (var item in Model)
         {
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parada.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bus.NumeroRuta)
-            </td>
-            @if (!User.IsInRole("UsuarioAnonimo"))
-            {
+            <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Parada.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bus.NumeroRuta)
+                </td>
+                @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <td>
 
 
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <br>
-                    @Html.ActionLink("Detallar", "Details", new { id = item.Id }) <br>
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                    
-                </td>}
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <br>
+                        @Html.ActionLink("Detallar", "Details", new { id = item.Id }) <br>
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+
+                    </td>
+                }
             </tr>
         }
 
     </tbody>
 
- 
+
 
 </table>
 
-<script src="/Content/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="~/Content/vendor/datatables/dataTables.responsive.min.js"></script>
 <script src="~/Content/vendor/datatables/responsive.bootstrap4.min.js"></script>
 <script src="~/Content/vendor/datatables/DataTables.js"></script>

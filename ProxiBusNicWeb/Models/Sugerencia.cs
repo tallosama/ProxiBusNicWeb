@@ -17,7 +17,7 @@ namespace ProxiBusNicWeb.Models
         public int Id { get; set; }
         public string DescripcionSugerencia { get; set; }
         public string UsuarioCreacion { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
+        public string FechaCreacion { get; set; }
         public int ParadaId { get; set; }
     
         public virtual Parada Parada { get; set; }

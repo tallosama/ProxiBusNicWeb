@@ -20,7 +20,7 @@ namespace ProxiBusNicWeb.Models
         public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
-    public class FactorViewModel
+        public class FactorViewModel
     {
         public string Purpose { get; set; }
     }

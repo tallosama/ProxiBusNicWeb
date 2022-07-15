@@ -1,0 +1,56 @@
+﻿@model ProxiBusNicWeb.Models.Sugerencia
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Está seguro de que desea eliminar esto?</h3>
+<div>
+    <h4>Sugerencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripcion De La Sugerencia")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionSugerencia)
+        </dd>
+
+        <dt>
+            @Html.Label("Usuario Creacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioCreacion)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha Creacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.Label("Parada Descripcion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parada.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

@@ -11,7 +11,7 @@
     {
         @Html.ActionLink("Crear", "Create")
     }
-    </p>
+</p>
 <table id="Tabla" class="table">
 
     <thead>
@@ -42,51 +42,51 @@
                 <th>
                     @Html.Label("Modificado por")
                 </th>
-          
-                    <th>Acciones</th>
-                }
-            </tr>
+
+                <th>Acciones</th>
+            }
+        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroRuta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @if (item.FotoBus != null)
-                {
-                    <img id="original" src="data:Img/png;base64,@Convert.ToBase64String(item.FotoBus)" width="80" height="80">
-                }
-
-                @if (item.FotoBus == null)
-                {
-                    <img id="original" src="~/Img/Ruta.png" width="80" height="80">
-                }
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
-            </td>
-            @if (!User.IsInRole("UsuarioAnonimo"))
-            {
+            <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                    @Html.DisplayFor(modelItem => item.NumeroRuta)
                 </td>
-            }
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaModificacion)
-            </td>
-            @if (!User.IsInRole("UsuarioAnonimo"))
-            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioModificacion)
+                    @Html.DisplayFor(modelItem => item.Estado)
                 </td>
-         
+                <td>
+                    @if (item.FotoBus != null)
+                    {
+                        <img id="original" src="data:Img/png;base64,@Convert.ToBase64String(item.FotoBus)" width="80" height="80">
+                    }
+
+                    @if (item.FotoBus == null)
+                    {
+                        <img id="original" src="~/Img/Ruta.png" width="80" height="80">
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                </td>
+                @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaModificacion)
+                </td>
+                @if (!User.IsInRole("UsuarioAnonimo"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioModificacion)
+                    </td>
+
                     <td>
                         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <br>
                         @Html.ActionLink("Detallar", "Details", new { id = item.Id }) <br>
@@ -103,10 +103,8 @@
 
 
 </table>
-
-<script src="/Content/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="~/Content/vendor/datatables/dataTables.responsive.min.js"></script>
 <script src="~/Content/vendor/datatables/responsive.bootstrap4.min.js"></script>
 <script src="~/Content/vendor/datatables/DataTables.js"></script>
- 

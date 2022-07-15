@@ -1,0 +1,91 @@
+﻿@model ProxiBusNicWeb.Models.Bus
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar Registro</h2>
+
+<h3>¿Está seguro de que desea eliminar este registro de Bus?</h3>
+<div>
+    <h4>Bus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Numero De Ruta")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroRuta)
+        </dd>
+
+        <dt>
+            @Html.Label("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            Foto capturada
+        </dt>
+        <dd>
+
+            @if (Model.FotoBus != null)
+            {
+                var imagen = String.Format("data:Img/png;base64,{0}", Convert.ToBase64String(Model.FotoBus));
+                <img id="original" src="@imagen" width="200" height="200">
+            }
+
+            @if (Model.FotoBus == null)
+            {
+                <img id="original" src="~/Img/Ruta.png" width="200" height="200">
+            }
+
+          
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha De Creacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.Label("Usuario Creacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioCreacion)
+        </dd>
+
+        <dt>
+            @Html.Label("Fecha De Modificacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaModificacion)
+        </dd>
+
+        <dt>
+            @Html.Label("Usuario Modificacion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioModificacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>
