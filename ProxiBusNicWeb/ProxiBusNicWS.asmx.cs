@@ -30,13 +30,13 @@ namespace ProxiBusNicWeb
         {
             Parada parada = new Parada();
 
-        parada.Descripcion = paradasWS.Descripcion;
-            parada.Alias =paradasWS.Alias;
+            parada.Descripcion = paradasWS.Descripcion;
+            parada.Alias = paradasWS.Alias;
             if (paradasWS.FotoParada != null)
                 parada.FotoParada = paradasWS.FotoParada;
             parada.Estado = paradasWS.Estado;
-            parada.Latitud=paradasWS.Latitud;
-            parada.Longitud=paradasWS.Longitud;
+            parada.Latitud = paradasWS.Latitud;
+            parada.Longitud = paradasWS.Longitud;
             parada.FechaCreacion = DateTime.Now.ToString();
             parada.UsuarioCreacion = paradasWS.UsuarioCreacion;
             parada.FechaModificacion = DateTime.Now.ToString();
@@ -48,125 +48,7 @@ namespace ProxiBusNicWeb
 
         }
 
-        [WebMethod]
-        public List<ParadasWS> ListarParada()
-        {
 
-
-            return db.Paradas.Select(p => new ParadasWS()
-            {
-
-                Id = p.Id,
-                Descripcion = p.Descripcion,
-                Alias = p.Alias,
-                FotoParada = p.FotoParada,
-                Estado = p.Estado,
-                Longitud = p.Longitud,
-                Latitud = p.Latitud,
-                FechaCreacion = p.FechaCreacion,
-                UsuarioCreacion = p.UsuarioCreacion,
-                FechaModificacion = p.FechaModificacion,
-                UsuarioModificacion = p.UsuarioModificacion
-
-            }).ToList();
-
-        }
-
-        [WebMethod]
-        public List<ParadasWS> ListarParadaActivas()
-        {
-
-
-            return db.Paradas.Where(p=>p.Estado).Select(p => new ParadasWS()
-            {
-
-                Id = p.Id,
-                Descripcion = p.Descripcion,
-                Alias = p.Alias,
-                FotoParada = p.FotoParada,
-                Estado = p.Estado,
-                Longitud = p.Longitud,
-                Latitud = p.Latitud,
-                FechaCreacion = p.FechaCreacion,
-                UsuarioCreacion = p.UsuarioCreacion,
-                FechaModificacion = p.FechaModificacion,
-                UsuarioModificacion = p.UsuarioModificacion
-
-            }).ToList();
-
-        }
-
-        [WebMethod]
-        public List<BusWS> ListarBus()
-        {
-
-
-            return db.Buses.Select(b => new BusWS()
-            {
-
-                Id = b.Id,
-                NumeroRuta = b.NumeroRuta,
-                Estado = b.Estado,
-                FotoBus = b.FotoBus,
-
-                FechaCreacion = b.FechaCreacion,
-                UsuarioCreacion = b.UsuarioCreacion,
-                FechaModificacion = b.FechaModificacion,
-                UsuarioModificacion = b.UsuarioModificacion
-
-            }).ToList();
-
-        }
-        [WebMethod]
-        public List<BusWS> ListarBusActivos()
-        {
-
-
-            return db.Buses.Where(b=>b.Estado).Select(b => new BusWS()
-            {
-
-                Id = b.Id,
-                NumeroRuta = b.NumeroRuta,
-                Estado = b.Estado,
-                FotoBus = b.FotoBus,
-
-                FechaCreacion = b.FechaCreacion,
-                UsuarioCreacion = b.UsuarioCreacion,
-                FechaModificacion = b.FechaModificacion,
-                UsuarioModificacion = b.UsuarioModificacion
-
-            }).ToList();
-
-        }
-
-        [WebMethod]
-        public List<BusParadaWS> ListarBusParada()
-        {
-
-
-            return db.BusParadas.Select(b => new BusParadaWS()
-            {
-                Id = b.Id,
-                ParadaId = b.ParadaId,
-                BusId = b.BusId
-            }).ToList();
-
-        }
-        [WebMethod]
-        public List<UsuariosWS> ListarUsuarios()
-        {
-
-            ApplicationDbContext context = new ApplicationDbContext();
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-            return userManager.Users.ToList().Select(b => new UsuariosWS()
-            {
-                Id = b.Id,
-                Correo = b.Email,
-                Clave = b.PasswordHash
-            }).ToList();
-
-        }
 
         [WebMethod]
         public int EditarBusParadas(BusParadaWS busParadaWs)
@@ -194,7 +76,7 @@ namespace ProxiBusNicWeb
             bus.FotoBus = busWs.FotoBus;
             bus.FechaModificacion = DateTime.Now.ToString();
             bus.UsuarioModificacion = busWs.UsuarioModificacion;
-             
+
             db.Entry(bus).State = EntityState.Modified;
 
             return db.SaveChanges();
@@ -203,7 +85,7 @@ namespace ProxiBusNicWeb
         [WebMethod]
         public int EditarParadas(ParadasWS ParadasWs)
         {
-             
+
             Parada parada = new Parada();
             parada.Id = ParadasWs.Id;
             parada.Descripcion = ParadasWs.Descripcion;
@@ -211,12 +93,12 @@ namespace ProxiBusNicWeb
             parada.FotoParada = ParadasWs.FotoParada;
             parada.Estado = ParadasWs.Estado;
             parada.Latitud = ParadasWs.Latitud;
-            parada.Longitud= ParadasWs.Longitud;
+            parada.Longitud = ParadasWs.Longitud;
             parada.UsuarioModificacion = ParadasWs.UsuarioModificacion;
             parada.FechaModificacion = DateTime.Now.ToString();
-             
 
-        db.Entry(parada).State = EntityState.Modified;
+
+            db.Entry(parada).State = EntityState.Modified;
 
             return db.SaveChanges();
 
@@ -231,7 +113,7 @@ namespace ProxiBusNicWeb
             sugerencia.ParadaId = sugerenciaWS.ParadaId;
             sugerencia.FechaCreacion = DateTime.Now.ToString();
             sugerencia.UsuarioCreacion = sugerenciaWS.UsuarioCreacion;
-        
+
             db.Sugerencias.Add(sugerencia);
             db.SaveChanges();
             return sugerencia.Id;
@@ -247,10 +129,10 @@ namespace ProxiBusNicWeb
 
             db.BusParadas.Add(busParada);
             db.SaveChanges();
-            
 
-                return busParada.Id;
-            
+
+            return busParada.Id;
+
         }
         [WebMethod]
         public int AgregarBus(BusWS busWS)
@@ -269,12 +151,108 @@ namespace ProxiBusNicWeb
             bus.UsuarioModificacion = busWS.UsuarioModificacion;
 
 
-        db.Buses.Add(bus);
+            db.Buses.Add(bus);
             db.SaveChanges();
             return bus.Id;
 
         }
-  
+
+        [WebMethod]
+        public ResultadoSW EliminarBus(int id)
+        {
+            Bus bus = new Bus();
+            bus = db.Buses.Where(b => b.Id == id).FirstOrDefault();
+
+            ResultadoSW resultadoSW = new ResultadoSW();
+            if (bus != null)
+            {
+                db.Buses.Remove(bus);
+                db.SaveChanges();
+                resultadoSW.respuesta = true;
+                resultadoSW.mensaje = "Se ha eliminado el bus";
+            }
+
+            else
+            {
+                resultadoSW.mensaje = "El bus no existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
+        }
+
+        [WebMethod]
+        public ResultadoSW EliminarParada(int id)
+        {
+            Parada parada = new Parada();
+            parada = db.Paradas.Where(b => b.Id == id).FirstOrDefault();
+
+            ResultadoSW resultadoSW = new ResultadoSW();
+            if (parada != null)
+            {
+                db.Paradas.Remove(parada);
+                db.SaveChanges();
+                resultadoSW.respuesta = true;
+                resultadoSW.mensaje = "Se ha eliminado la parada";
+            }
+
+            else
+            {
+                resultadoSW.mensaje = "La parada no existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
+        }
+
+        [WebMethod]
+        public ResultadoSW EliminarBusesParadas(int id)
+        {
+            BusParada busParada = new BusParada();
+            busParada = db.BusParadas.Where(b => b.Id == id).FirstOrDefault();
+
+            ResultadoSW resultadoSW = new ResultadoSW();
+            if (busParada != null)
+            {
+                db.BusParadas.Remove(busParada);
+                db.SaveChanges();
+                resultadoSW.respuesta = true;
+                resultadoSW.mensaje = "Se ha eliminado el registro";
+            }
+
+            else
+            {
+                resultadoSW.mensaje = "El registro no existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
+        }
+
+        [WebMethod]
+        public ResultadoSW EliminaraSugerencias(int id)
+        {
+            Sugerencia sugerencia = new Sugerencia();
+            sugerencia = db.Sugerencias.Where(b => b.Id == id).FirstOrDefault();
+
+            ResultadoSW resultadoSW = new ResultadoSW();
+            if (sugerencia != null)
+            {
+                db.Sugerencias.Remove(sugerencia);
+                db.SaveChanges();
+                resultadoSW.respuesta = true;
+                resultadoSW.mensaje = "Se ha eliminado la sugerencia";
+            }
+
+            else
+            {
+                resultadoSW.mensaje = "La sugerencia no existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
+        }
+
         [WebMethod]
         public bool CambiarClave(string correo, string Pass)
         {
@@ -290,9 +268,9 @@ namespace ProxiBusNicWeb
             {
                 userManager.RemovePassword(resultado.Id);
                 userManager.AddPassword(resultado.Id, Pass);
-                    return true;
+                return true;
             }
-            
+
         }
 
 
@@ -345,6 +323,34 @@ namespace ProxiBusNicWeb
             return resultadoSW;
 
         }
+
+
+
+        [WebMethod]
+        public ResultadoSW EliminarUsuario(string Email)
+        {
+            ResultadoSW resultadoSW = new ResultadoSW();
+            ApplicationDbContext context = new ApplicationDbContext();
+
+
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var validarUsuario = UserManager.Users.Where(u => u.Email.Equals(Email)).FirstOrDefault();
+            if (validarUsuario != null)
+            {
+                UserManager.Delete(validarUsuario);
+                resultadoSW.respuesta = true;
+                resultadoSW.mensaje = "Se ha eliminado el usuario";
+            }
+
+            else
+            {
+                resultadoSW.mensaje = "El usuario no existe";
+                resultadoSW.respuesta = false;
+            }
+            return resultadoSW;
+
+        }
+
         [WebMethod]
         public ResultadoSW CrearUsuarioRol(string Email, string Pass, string rol)
         {
@@ -392,7 +398,7 @@ namespace ProxiBusNicWeb
                         resultadoSW.mensaje = "Se ha creado el usuario satisfactoriamente";
                         resultadoSW.respuesta = true;
                     }
-                   
+
                 }
                 else
                 {
@@ -421,7 +427,7 @@ namespace ProxiBusNicWeb
         {
 
             var result = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>().PasswordSignIn(cuenta, Pass, false, false);
-           
+
             if (result == SignInStatus.Success)
             {
                 return true;
@@ -429,6 +435,130 @@ namespace ProxiBusNicWeb
             else
                 return false;
         }
+
+        //LISTAR
+
+        [WebMethod]
+        public List<ParadasWS> ListarParada()
+        {
+
+
+            return db.Paradas.Select(p => new ParadasWS()
+            {
+
+                Id = p.Id,
+                Descripcion = p.Descripcion,
+                Alias = p.Alias,
+                FotoParada = p.FotoParada,
+                Estado = p.Estado,
+                Longitud = p.Longitud,
+                Latitud = p.Latitud,
+                FechaCreacion = p.FechaCreacion,
+                UsuarioCreacion = p.UsuarioCreacion,
+                FechaModificacion = p.FechaModificacion,
+                UsuarioModificacion = p.UsuarioModificacion
+
+            }).ToList();
+
+        }
+
+
+        [WebMethod]
+        public List<ParadasWS> ListarParadaActivas()
+        {
+
+            return db.Paradas.Where(p => p.Estado).Select(p => new ParadasWS()
+            {
+
+                Id = p.Id,
+                Descripcion = p.Descripcion,
+                Alias = p.Alias,
+                FotoParada = p.FotoParada,
+                Estado = p.Estado,
+                Longitud = p.Longitud,
+                Latitud = p.Latitud,
+                FechaCreacion = p.FechaCreacion,
+                UsuarioCreacion = p.UsuarioCreacion,
+                FechaModificacion = p.FechaModificacion,
+                UsuarioModificacion = p.UsuarioModificacion
+
+            }).ToList();
+
+        }
+
+        [WebMethod]
+        public List<BusWS> ListarBus()
+        {
+
+
+            return db.Buses.Select(b => new BusWS()
+            {
+
+                Id = b.Id,
+                NumeroRuta = b.NumeroRuta,
+                Estado = b.Estado,
+                FotoBus = b.FotoBus,
+
+                FechaCreacion = b.FechaCreacion,
+                UsuarioCreacion = b.UsuarioCreacion,
+                FechaModificacion = b.FechaModificacion,
+                UsuarioModificacion = b.UsuarioModificacion
+
+            }).ToList();
+
+        }
+        [WebMethod]
+        public List<BusWS> ListarBusActivos()
+        {
+
+
+            return db.Buses.Where(b => b.Estado).Select(b => new BusWS()
+            {
+
+                Id = b.Id,
+                NumeroRuta = b.NumeroRuta,
+                Estado = b.Estado,
+                FotoBus = b.FotoBus,
+
+                FechaCreacion = b.FechaCreacion,
+                UsuarioCreacion = b.UsuarioCreacion,
+                FechaModificacion = b.FechaModificacion,
+                UsuarioModificacion = b.UsuarioModificacion
+
+            }).ToList();
+
+        }
+
+        [WebMethod]
+        public List<BusParadaWS> ListarBusParada()
+        {
+
+
+            return db.BusParadas.Select(b => new BusParadaWS()
+            {
+                Id = b.Id,
+                ParadaId = b.ParadaId,
+                BusId = b.BusId
+            }).ToList();
+
+        }
+        [WebMethod]
+        public List<UsuariosWS> ListarUsuarios()
+        {
+
+            ApplicationDbContext context = new ApplicationDbContext();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            return userManager.Users.ToList().Select(b => new UsuariosWS()
+            {
+                Id = b.Id,
+                Correo = b.Email,
+                Clave = b.PasswordHash
+            }).ToList();
+
+        }
+
+
         public class ResultadoSW
         {
             public string mensaje;
@@ -440,11 +570,12 @@ namespace ProxiBusNicWeb
             public int ParadaId { get; set; }
             public int BusId { get; set; }
         }
-            public class SugerenciaWS{
+        public class SugerenciaWS
+        {
             public int Id { get; set; }
             public string DescripcionSugerencia { get; set; }
             public string UsuarioCreacion { get; set; }
-            public string FechaCreacion { get; set; }
+            public string  FechaCreacion { get; set; }
             public int ParadaId { get; set; }
         }
         public class UsuariosWS
@@ -454,7 +585,8 @@ namespace ProxiBusNicWeb
             public string Clave { get; set; }
 
         }
-        public class BusWS{
+        public class BusWS
+        {
             public int Id { get; set; }
             public string NumeroRuta { get; set; }
             public bool Estado { get; set; }
