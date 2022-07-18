@@ -78,8 +78,9 @@ namespace ProxiBusNicWeb
         public int EditarParadas(ParadasWS ParadasWs)
         {
 
-            Parada parada = new Parada();
-            parada.Id = ParadasWs.Id;
+            Parada parada = db.Paradas.Where(p => p.Id == ParadasWs.Id).FirstOrDefault();
+            //new Parada();
+            //parada.Id = ParadasWs.Id;
             parada.Descripcion = ParadasWs.Descripcion;
             parada.Alias = ParadasWs.Alias;
             parada.FotoParada = ParadasWs.FotoParada;
@@ -169,7 +170,7 @@ namespace ProxiBusNicWeb
             BusParada busParada = new BusParada();
 
             busParada.BusId = busParadaWS.BusId;
-            busParada.ParadaId = busParadaWS.BusId;
+            busParada.ParadaId = busParadaWS.ParadaId;
 
             db.BusParadas.Add(busParada);
             db.SaveChanges();
@@ -311,9 +312,9 @@ namespace ProxiBusNicWeb
         public int EditarBus(BusWS busWs)
         {
 
-
-            Bus bus = new Bus();
-            bus.Id = busWs.Id;
+            Bus bus = db.Buses.Where(p => p.Id == busWs.Id).FirstOrDefault();
+          
+           // bus.Id = busWs.Id;
             bus.NumeroRuta = busWs.NumeroRuta;
             bus.Estado = busWs.Estado;
             bus.FotoBus = busWs.FotoBus;
